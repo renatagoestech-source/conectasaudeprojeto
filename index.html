@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conecta Saúde | Agendamento UBS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">+</div>
+      <div><strong>Conecta Saúde</strong><span>Agendamento UBS</span></div>
+    </div>
+    <div class="user-badge" id="userBadge">Acesso do cidadão</div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">SAÚDE PÚBLICA • SIMPLES E DIGITAL</p>
+        <h1>Agende sua consulta na UBS sem complicação.</h1>
+        <p>Escolha sua unidade, especialidade, data e horário. Ao finalizar, veja sua posição na fila.</p>
+      </div>
+      <div class="hero-icon">♥</div>
+    </section>
+
+    <div class="steps">
+      <div class="step active" data-step="1"><b>1</b><span>Cadastro</span></div>
+      <div class="line"></div>
+      <div class="step" data-step="2"><b>2</b><span>UBS</span></div>
+      <div class="line"></div>
+      <div class="step" data-step="3"><b>3</b><span>Especialidade</span></div>
+      <div class="line"></div>
+      <div class="step" data-step="4"><b>4</b><span>Data e horário</span></div>
+      <div class="line"></div>
+      <div class="step" data-step="5"><b>5</b><span>Confirmação</span></div>
+    </div>
+
+    <section id="alertBox" class="alert hidden"></section>
+
+    <section id="screenCadastro" class="card screen">
+      <div class="section-title"><span class="icon">👤</span><div><h2>Identificação</h2><p>Informe seus dados para começar.</p></div></div>
+      <form id="cadastroForm">
+        <label>Nome completo
+          <input id="nome" type="text" placeholder="Digite seu nome completo" required>
+        </label>
+        <div class="two-cols">
+          <label>Celular
+            <input id="celular" type="tel" inputmode="numeric" placeholder="(00) 00000-0000" maxlength="15" required>
+          </label>
+          <label>Cartão SUS
+            <input id="sus" type="text" inputmode="numeric" placeholder="Digite o número do Cartão SUS" maxlength="18" required>
+          </label>
+        </div>
+        <p class="privacy">🔒 Seus dados são usados somente para este protótipo de agendamento.</p>
+        <button class="primary" type="submit">Continuar <span>→</span></button>
+      </form>
+    </section>
+
+    <section id="screenUBS" class="card screen hidden">
+      <div class="section-title"><span class="icon">🏥</span><div><h2>Escolha sua UBS</h2><p>Selecione a unidade onde deseja ser atendido.</p></div></div>
+      <div id="ubsGrid" class="ubs-grid"></div>
+      <button class="secondary" id="backToCadastro">← Voltar</button>
+    </section>
+
+    <section id="screenEspecialidade" class="card screen hidden">
+      <div class="section-title"><span class="icon">🩺</span><div><h2>Escolha a especialidade</h2><p>Selecione o tipo de atendimento.</p></div></div>
+      <div id="especialidades" class="specialties"></div>
+      <div class="actions"><button class="secondary" id="backToUBS">← Voltar</button></div>
+    </section>
+
+    <section id="screenAgenda" class="card screen hidden">
+      <div class="section-title"><span class="icon">📅</span><div><h2>Escolha data e horário</h2><p id="agendaSubtitle">Dias úteis e horários disponíveis.</p></div></div>
+      <div class="agenda-layout">
+        <div>
+          <div class="calendar-head">
+            <button id="prevMonth" aria-label="Mês anterior">‹</button>
+            <strong id="monthTitle"></strong>
+            <button id="nextMonth" aria-label="Próximo mês">›</button>
+          </div>
+          <div class="weekdays"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div>
+          <div id="calendar" class="calendar"></div>
+          <div class="legend"><span><i class="dot available"></i> Disponível</span><span><i class="dot disabled"></i> Indisponível</span></div>
+        </div>
+        <div class="time-panel">
+          <h3 id="selectedDateTitle">Selecione uma data</h3>
+          <p class="capacity">Até <strong>20 atendimentos por dia</strong>: 10 pela manhã + 10 à tarde.</p>
+          <div class="period">
+            <h4>☀️ Manhã</h4>
+            <div id="morningSlots" class="slots"></div>
+          </div>
+          <div class="period">
+            <h4>🌤️ Tarde</h4>
+            <div id="afternoonSlots" class="slots"></div>
+          </div>
+        </div>
+      </div>
+      <div class="actions"><button class="secondary" id="backToEspecialidade">← Voltar</button><button class="primary" id="continueConfirm" disabled>Continuar →</button></div>
+    </section>
+
+    <section id="screenConfirmacao" class="card screen hidden">
+      <div class="success">✓</div>
+      <div class="success-title"><h2>Agendamento confirmado!</h2><p>Confira os detalhes da sua consulta.</p></div>
+      <div id="summary" class="summary"></div>
+      <div class="queue-card">
+        <span>Sua posição na fila deste horário</span>
+        <strong id="queuePosition">—</strong>
+        <small>Você receberá um lembrete próximo da consulta.</small>
+      </div>
+      <div class="notice">📱 <b>Protótipo:</b> neste projeto o lembrete é exibido na tela. Para enviar SMS/WhatsApp de verdade, será necessário conectar um backend e um serviço de mensagens.</div>
+      <button class="primary" id="newAppointment">Fazer novo agendamento</button>
+    </section>
+  </main>
+
+  <footer>Conecta Saúde • Protótipo acadêmico de agendamento em UBS</footer>
+  <script src="script.js"></script>
+</body>
+</html>
